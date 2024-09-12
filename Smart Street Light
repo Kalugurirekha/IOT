@@ -1,0 +1,87 @@
+int trigger_pin1 = 2; 
+int echo_pin1 = 3; 
+int trigger_pin2 = 9; 
+int echo_pin2 = 8; 
+int led1= 10; 
+int led2= 11; 
+int time; 
+int distance; 
+int ldr; 
+void setup() { 
+  Serial.begin (9600); 
+  pinMode (trigger_pin1, OUTPUT);   
+  pinMode (echo_pin1, INPUT);   
+  pinMode (trigger_pin2, OUTPUT);   
+  pinMode (echo_pin2, INPUT);   
+  pinMode (led1, OUTPUT);   
+  pinMode (led2, OUTPUT); 
+   
+} 
+void loop() { 
+  ldr=analogRead(A0); 
+  Serial.print(ldr); 
+  digitalWrite (trigger_pin1, HIGH);   
+  delayMicroseconds (10);   
+  digitalWrite (trigger_pin1, LOW);   
+  time = pulseIn (echo_pin1, HIGH);   
+  distance = (time * 0.034) / 2;   
+  if (distance <= 330) 
+  { 
+    if(ldr<=300) 
+    { 
+      Serial.println (" light on "); 
+      Serial.print (" Distance= ");       
+      Serial.println (distance);       
+      digitalWrite (led1, HIGH);       
+      delay (500); 
+    }     
+    else 
+    { 
+      Serial.println (" light off "); 
+      Serial.print (" Distance= ");       
+      Serial.println (distance);       
+      digitalWrite (led1, LOW);       
+      delay (500); 
+    }   
+  }  
+  else 
+  { 
+    Serial.println (" light off "); 
+    Serial.print (" Distance= ");     
+    Serial.println (distance);     
+    digitalWrite (led1, LOW);     
+    delay (500); 
+  } 
+  digitalWrite (trigger_pin2, HIGH);   
+  delayMicroseconds (10);   
+  digitalWrite (trigger_pin2, LOW);   
+  time = pulseIn (echo_pin2, HIGH);   
+  distance = (time * 0.034) / 2;   
+  if (distance <= 330) 
+  { 
+    if(ldr<=300) 
+    { 
+      Serial.println (" light on "); 
+      Serial.print (" Distance= ");       
+      Serial.println (distance);       
+      digitalWrite (led2, HIGH);       
+      delay (500); 
+    }     
+    else 
+    { 
+      Serial.println (" light off "); 
+      Serial.print (" Distance= ");       
+      Serial.println (distance);       
+      digitalWrite (led2, LOW);       
+      delay (500); 
+    }   
+  }   
+  else  
+  { 
+    Serial.println (" light off "); 
+    Serial.print (" Distance= ");     
+    Serial.println (distance);     
+    digitalWrite (led2, LOW);     
+    delay (500); 
+   } 
+} 
